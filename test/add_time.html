@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to display the minutes of the time right now.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    var d1 = new Date (),
+    d2 = new Date ( d1 );
+    d2.setMinutes ( d1.getMinutes() + 10 );
+    var minutes=d2.getMinutes()
+    var hours=d2.getHours()
+    alert ( hours+':'+minutes );
+}
+</script>
+
+</body>
+</html>
