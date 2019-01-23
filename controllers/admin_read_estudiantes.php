@@ -6,7 +6,7 @@
     $ban = true;
     $arrAlumno = array();
     
-    $sqlGetEsts = "SELECT * FROM $tUsers WHERE perfil_id='3' ";
+    $sqlGetEsts = "SELECT * FROM $tUsers WHERE perfil_id='3' AND activo = '1' ";
     //Ordenar ASC y DESC
     $vorder = (isset($_POST['orderby'])) ? $_POST['orderby'] : "";
     if($vorder != ''){

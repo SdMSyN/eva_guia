@@ -4,11 +4,14 @@
     include('../config/variables.php');
     
     $idUser = $_POST['idUser'];
-    $name = (isset($_POST['inputName'])) ? $_POST['inputName'] : '';
+    $name1 = (isset($_POST['inputName'])) ? $_POST['inputName'] : '';
+    $ap = (isset($_POST['inputAP'])) ? $_POST['inputAP'] : '';
+    $am = (isset($_POST['inputAM'])) ? $_POST['inputAM'] : '';
     $esc = (isset($_POST['inputEsc'])) ? $_POST['inputEsc'] : '';
     $mail = (isset($_POST['inputMail'])) ? $_POST['inputMail'] : '';
     $cel = (isset($_POST['inputCel'])) ? $_POST['inputCel'] : '';
     
+    $name = $name1.' '.$ap.' '.$am;
     $msgErr = '';
     $ban = true;
     

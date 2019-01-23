@@ -32,6 +32,7 @@
                             
                         }
                         $cadWelcome .= '<li><a href="est_read_material_apoyo.php">Apoyo</a></li>';
+                        $cadWelcome .= ($idUser != 0) ? '<li><a href="../controllers/get_calif_pdf.php" target="_blank">Calificaciones</a></li>' : '';
                         $cadWelcome .= '<li><a href="http://ide-educativo.com">Nosotros</a></li>';
                         $cadWelcome .= '<li><a href="../controllers/destroy_login.php">Salir</a></li>';
                     }else{

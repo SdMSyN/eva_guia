@@ -13,6 +13,11 @@
             <img src="../assets/img/loader.gif" alt="Preloader image">
 	</div>
 <?php
+    if (isset($_SESSION['userId'])){
+        $idUser = $_SESSION['userId'];
+    }else{
+        $idUser = 0;
+    }
     include ('navbar2.php');
 ?>
 
