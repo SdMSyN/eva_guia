@@ -13,8 +13,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-nav">
-                <li><a href="#mate">Matemáticas</a></li>
-                <li><a href="#esp">Español</a></li>
+                <!-- <li><a href="#mate">Matemáticas</a></li>
+                <li><a href="#esp">Español</a></li> -->
+                
                 <!-- <li><a href="#red">Redacción</a></li>
                 <li><a href="#gen">Generales</a></li>
                 <li><a href="#">IDANIS</a></li> 
@@ -23,11 +24,12 @@
                     $cadWelcome="";
                     if(isset($_SESSION['sessU'])  AND $_SESSION['sessU'] == "true"){
                         if($_SESSION['nivelEsc'] == 2){// menú secundaria
-                            $cadWelcome .= '<li><a href="#red">Redacción</a></li>';
-                            $cadWelcome .= '<li><a href="#gen">Generales</a></li>';
+                            //$cadWelcome .= '<li><a href="#red">Redacción</a></li>';
+                            //$cadWelcome .= '<li><a href="#gen">Generales</a></li>';
+                            //
                             //$cadWelcome .= '<li><a href="#">IDANIS</a></li>';
                         }else if($_SESSION['nivelEsc'] == 3){// menú preparatoria
-                            $cadWelcome .= '<li><a href="#gen">Generales</a></li>';
+                            //$cadWelcome .= '<li><a href="#gen">Generales</a></li>';
                         }else{
                             
                         }
