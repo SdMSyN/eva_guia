@@ -238,13 +238,14 @@ include('../config/conexion.php');
         <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content modal-popup">
-                    <a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
                     <h3 class="white">Completar datos</h3>
                     <form class="popup-form" id="formData" method="POST">
                         <input type="hidden" name="idUser" value="<?= $idUser; ?>">
                         <input type="text" class="form-control form-white" placeholder="Nombre" id="inputName" name="inputName">
                         <input type="text" class="form-control form-white" placeholder="Apellido Paterno" id="inputAP" name="inputAP">
                         <input type="text" class="form-control form-white" placeholder="Apellido Materno" id="inputAM" name="inputAM">
+                        <input type="text" class="form-control form-white" placeholder="CURP" id="inputCurp" name="inputCurp">
+                        <span><a href="">Consulta tu CURP aquí</a></span>
                         <select class="form-control form-white" id="inputEsc" name="inputEsc">
                             <option style="background-color: #00a8ff">Escuela a ingresar</option>
                             <option style="background-color: #00a8ff" value="1">Técnica #1</option>
@@ -269,6 +270,7 @@ include('../config/conexion.php');
                         console.log("<?= $cadDel; ?>");
                         var msg = jQuery.parseJSON(msg);
                         if (msg.error == 0) {
+                            $("#modal2").modal( { backdrop: 'static', keyboard: false } ) // Para bloquear modal
                             $("#modal2").modal("show");
                         } else {
                             $("#modal2").modal("hidden");
@@ -279,30 +281,64 @@ include('../config/conexion.php');
                     }
                 });
 
+                $.validator.addMethod( "validateCurp", function( value, element ){
+                    if( /^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/.test( value ) ){
+                        return true;
+                    }else return false;
+                }, "Formato CURP inválido" )
+
                 $('#formData').validate({
                     rules: {
-                        inputName: {required: true},
-                        inputAP: {required: true},
-                        inputAM: {required: true},
-                        inputEsc: {required: true},
-                        inputMail: {required: true},
-                        inputCel: {required: true}
+                        inputName : { required: true },
+                        inputAP   : { required: true },
+                        inputAM   : { required: true },
+                        inputCurp : { 
+                            required     : true,
+                            minlength    : 18,
+                            maxlength    : 18,
+                            validateCurp : true
+                        },
+                        inputEsc  : { required: true },
+                        inputMail : { 
+                            required : true, 
+                            email    : true
+                        },
+                        inputCel  : { 
+                            required : true,
+                            digits   : true,
+                            minlength : 10,
+                            maxlength : 10
+                        }
                     },
                     messages: {
-                        inputName: "Nombre obligatorio",
-                        inputAP: "Apellido paterno obligatorio",
-                        inputAM: "Apellido materno obligatorio",
-                        inputEsc: "Escuela a ingresar obligatoria",
-                        inputMail: "Correo electrónico obligatorio",
-                        inputCel: "Celular obligatorio"
+                        inputName : "Nombre obligatorio",
+                        inputAP   : "Apellido paterno obligatorio",
+                        inputAM   : "Apellido materno obligatorio",
+                        inputCurp : {
+                            required: "CURP obligatorio",
+                            minlength : "Deben ser mínimo 18 caracteres",
+                            maxlength : "Deben ser máximo 18 caracteres"
+                        },
+                        inputEsc  : "Escuela a ingresar obligatoria",
+                        inputMail : {
+                            required : "Correo electrónico obligatorio",
+                            email    : "Formato de correo inválido"
+                        },
+                        inputCel  : {
+                            required  : "Celular obligatorio",
+                            digits    : "Solo se permiten números",
+                            minlength : "Deben ser mínimo 10 caracteres",
+                            maxlength : "Deben ser máximo 10 caracteres"
+                        }
                     },
                     tooltip_options: {
-                        inputName: {trigger: "focus", placement: 'right'},
-                        inputAP: {trigger: "focus", placement: 'right'},
-                        inputAM: {trigger: "focus", placement: 'right'},
-                        inputEsc: {trigger: "focus", placement: 'right'},
-                        inputMail: {trigger: "focus", placement: 'right'},
-                        inputCel: {trigger: "focus", placement: 'right'}
+                        inputName : { trigger: "focus", placement: 'right' },
+                        inputAP   : { trigger: "focus", placement: 'right' },
+                        inputAM   : { trigger: "focus", placement: 'right' },
+                        inputCurp : { trigger: "focus", placement: 'right' },
+                        inputEsc  : { trigger: "focus", placement: 'right' },
+                        inputMail : { trigger: "focus", placement: 'right' },
+                        inputCel  : { trigger: "focus", placement: 'right' }
                     },
                     beforeSend: function () {
                         $('.msg').html('loading...');

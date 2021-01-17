@@ -16,7 +16,7 @@
 
         <footer class="footer">
             <p class="textFoot">&copy; Noviembre, 2016, Desarrollado por <b>
-                <a href="http://softlutions.biz" target="_blank">Business Software Solutions</a></b></p>
+                <a href="http://solucionesynegocios.com.mx/" target="_blank">Software de México: Soluciones y Negocios S.A.S. de C.V.</a></b></p>
         </footer>
         <!-- Holder for mobile navigation -->
 	<div class="mobile-nav">

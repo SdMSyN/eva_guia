@@ -4,14 +4,15 @@
     include('../config/variables.php');
     
     $idUser = $_POST['idUser'];
-    $name1 = (isset($_POST['inputName'])) ? $_POST['inputName'] : '';
-    $ap = (isset($_POST['inputAP'])) ? $_POST['inputAP'] : '';
-    $am = (isset($_POST['inputAM'])) ? $_POST['inputAM'] : '';
-    $esc = (isset($_POST['inputEsc'])) ? $_POST['inputEsc'] : '';
-    $mail = (isset($_POST['inputMail'])) ? $_POST['inputMail'] : '';
-    $cel = (isset($_POST['inputCel'])) ? $_POST['inputCel'] : '';
+    $name1  = ( isset( $_POST[ 'inputName' ] ) ) ? $_POST[ 'inputName' ] : '';
+    $ap     = ( isset( $_POST[ 'inputAP' ] ) )   ? $_POST[ 'inputAP' ]   : '';
+    $am     = ( isset( $_POST[ 'inputAM' ] ) )   ? $_POST[ 'inputAM' ]   : '';
+    $curp   = ( isset( $_POST[ 'inputCurp' ] ) ) ? $_POST[ 'inputCurp' ] : '';
+    $esc    = ( isset( $_POST[ 'inputEsc' ] ) )  ? $_POST[ 'inputEsc' ]  : '';
+    $mail   = ( isset( $_POST[ 'inputMail' ] ) ) ? $_POST[ 'inputMail' ] : '';
+    $cel    = ( isset( $_POST[ 'inputCel' ] ) )  ? $_POST[ 'inputCel' ]  : '';
     
-    $name = $name1.' '.$ap.' '.$am;
+    $name = strtoupper( $name1 ).' '.strtoupper( $ap ).' '.strtoupper( $am ); // Nombre todo a mayúsculas
     $msgErr = '';
     $ban = true;
     
@@ -21,8 +22,8 @@
     $idInfo = $rowGetIdInfo['informacion_id'];
     
     if($name != ''){
-        $sqlUpdateName = "UPDATE $tUsers SET nombre='$name' WHERE id='$idUser' ";
-        if($con->query($sqlUpdateName) === TRUE){
+        $sqlUpdateName = "UPDATE $tUsers SET nombre='$name', curp = '$curp' WHERE id='$idUser' ";
+        if( $con->query( $sqlUpdateName ) === TRUE ){
             $ban = true;
             $msgErr .= 'Nombre actualizado con éxito.';
         }else{
@@ -30,13 +31,13 @@
             $msgErr .= 'Error: Al actualizar nombre.';
         }
     }
-    if($esc != '' || $mail != '' && $cel != ''){
+    if( $esc != '' || $mail != '' && $cel != '' ){
         $cadSqlUpd = "UPDATE $tInfo SET actualizado='$dateNow' ";
-        if($esc != '') $cadSqlUpd .= ", escuela_id='$esc'";
-        if($mail != '') $cadSqlUpd .= ", correo='$mail'";
-        if($cel != '') $cadSqlUpd .= ", celular='$cel'";
+        if( $esc != '' ) $cadSqlUpd .= ", escuela_id='$esc'";
+        if( $mail != '' ) $cadSqlUpd .= ", correo='$mail'";
+        if( $cel != '' ) $cadSqlUpd .= ", celular='$cel'";
         $cadSqlUpd .= " WHERE id='$idInfo' ";
-        if($con->query($cadSqlUpd) === TRUE){
+        if( $con->query( $cadSqlUpd ) === TRUE ){
             $ban = true;
             $msgErr .= 'Información actualizada con éxito.';
         }else{

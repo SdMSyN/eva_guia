@@ -1,8 +1,8 @@
 <?php
     session_start();
     include ('../config/conexion.php');
-    $user = $_POST['inputUser'];
-    $pass = $_POST['inputPass'];
+    $user = trim( $_POST['inputUser'] );
+    $pass = trim( $_POST['inputPass'] );
     
     $cadErr = '';
     $ban =false;
