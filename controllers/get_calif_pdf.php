@@ -17,10 +17,9 @@ class PDF extends FPDF {
     // Cabecera de página
     function Header() {
         $this->SetFont('Arial', 'B', 12);
-        // Movernos a la derecha
         $this->Cell(0, 10, utf8_decode('Calificaciones GUIA'), 0, 1, 'C');
         // Salto de línea
-        $this->Ln(9);
+        //$this->Ln(9);
     }
 
     // Pie de página
@@ -33,10 +32,33 @@ class PDF extends FPDF {
 }
 
 //Fin class PDF
+//Obtenemos los datos del usuario
+$sqlGetUser = "SELECT $tUsers.nombre as name, $tUsers.user as user, $tBEsc.nombre as nameEsc "
+        . "FROM $tUsers "
+        . "INNER JOIN $tInfo ON $tInfo.id = $tUsers.informacion_id "
+        . "INNER JOIN $tBEsc ON $tBEsc.id = $tInfo.escuela_id "
+        . "WHERE $tUsers.id = '$idUser' ";
+$resGetUser = $con->query($sqlGetUser);
+$rowGetUser = $resGetUser->fetch_assoc();
 
 $pdf = new PDF();
 $pdf->AddPage('P', 'Letter');
 $pdf->SetFont('Arial', '', 10);
+
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(17, 10, utf8_decode('Nombre: '), 1, 0, 'C');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(60, 10, utf8_decode($rowGetUser['name']), 1, 0, 'L');
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(17, 10, utf8_decode('Usuario: '), 1, 0, 'C');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(20, 10, utf8_decode($rowGetUser['user']), 1, 0, 'L');
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(17, 10, utf8_decode('Escuela: '), 1, 0, 'C');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(50, 10, utf8_decode($rowGetUser['nameEsc']), 1, 1, 'L');
+$pdf->Ln(9);
+
 $programa = array();
 
 $msgErr = '';
