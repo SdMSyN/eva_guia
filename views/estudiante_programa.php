@@ -251,7 +251,20 @@ include('../config/conexion.php');
                             <option style="background-color: #00a8ff" value="1">Técnica #1</option>
                             <option style="background-color: #00a8ff" value="2">Otro</option>
                         </select>
-                        <input type="mail" class="form-control form-white" placeholder="Correo" id="inputMail" name="inputMail">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="mail" class="form-control form-white" placeholder="Correo" id="inputMail" name="inputMail">
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="form-control form-white" id="inputMailEnd" name="inputMailEnd">
+                                    <option style="background-color: #00a8ff" value="">@</option>
+                                    <option style="background-color: #00a8ff" value="1">@gmail.com</option>
+                                    <option style="background-color: #00a8ff" value="2">@hotmail.com</option>
+                                    <option style="background-color: #00a8ff" value="3">@outlook.com</option>
+                                    <option style="background-color: #00a8ff" value="4">@icloud.com</option>
+                                </select>
+                            </div>
+                        </div>
                         <input type="number" class="form-control form-white" placeholder="Celular" id="inputCel" name="inputCel">
                         <button type="submit" class="btn btn-submit">Actualizar</button>
                     </form>
@@ -282,10 +295,16 @@ include('../config/conexion.php');
                 });
 
                 $.validator.addMethod( "validateCurp", function( value, element ){
-                    if( /^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/.test( value ) ){
+                    if( /^[A-Z]{1}[AEIOUX]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/.test( value ) ){
                         return true;
                     }else return false;
                 }, "Formato CURP inválido" )
+
+                // $.validator.addMethod( "validateCorreo", function( value, element ) {
+                //     if( /^[A-Za-z0-9_-\+\.]+$/.test( value ) )
+                //         return true;
+                //     else return false;
+                // }, "Correo inválido" )
 
                 $('#formData').validate({
                     rules: {
@@ -300,12 +319,12 @@ include('../config/conexion.php');
                         },
                         inputEsc  : { required: true },
                         inputMail : { 
-                            required : true, 
-                            email    : true
+                            required     : true
                         },
+                        inputMailEnd : { required : true },
                         inputCel  : { 
-                            required : true,
-                            digits   : true,
+                            required  : true,
+                            digits    : true,
                             minlength : 10,
                             maxlength : 10
                         }
@@ -320,10 +339,8 @@ include('../config/conexion.php');
                             maxlength : "Deben ser máximo 18 caracteres"
                         },
                         inputEsc  : "Escuela a ingresar obligatoria",
-                        inputMail : {
-                            required : "Correo electrónico obligatorio",
-                            email    : "Formato de correo inválido"
-                        },
+                        inputMail : "Correo electrónico obligatorio",
+                        inputMailEnd : "Terminación de correo obligatoria",
                         inputCel  : {
                             required  : "Celular obligatorio",
                             digits    : "Solo se permiten números",
@@ -338,6 +355,7 @@ include('../config/conexion.php');
                         inputCurp : { trigger: "focus", placement: 'right' },
                         inputEsc  : { trigger: "focus", placement: 'right' },
                         inputMail : { trigger: "focus", placement: 'right' },
+                        inputMailEnd : { trigger: "focus", placement: 'right' },
                         inputCel  : { trigger: "focus", placement: 'right' }
                     },
                     beforeSend: function () {
@@ -347,6 +365,7 @@ include('../config/conexion.php');
                         $('#loading').show();
                         $.ajax({
                             type: "POST",
+                            async: false,
                             url: "../controllers/update_est_info.php",
                             data: $('form#formData').serialize(),
                             success: function (msg) {

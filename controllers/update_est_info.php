@@ -3,16 +3,20 @@
     include('../config/conexion.php');
     include('../config/variables.php');
     
-    $idUser = $_POST['idUser'];
-    $name1  = ( isset( $_POST[ 'inputName' ] ) ) ? $_POST[ 'inputName' ] : '';
-    $ap     = ( isset( $_POST[ 'inputAP' ] ) )   ? $_POST[ 'inputAP' ]   : '';
-    $am     = ( isset( $_POST[ 'inputAM' ] ) )   ? $_POST[ 'inputAM' ]   : '';
-    $curp   = ( isset( $_POST[ 'inputCurp' ] ) ) ? $_POST[ 'inputCurp' ] : '';
-    $esc    = ( isset( $_POST[ 'inputEsc' ] ) )  ? $_POST[ 'inputEsc' ]  : '';
-    $mail   = ( isset( $_POST[ 'inputMail' ] ) ) ? $_POST[ 'inputMail' ] : '';
-    $cel    = ( isset( $_POST[ 'inputCel' ] ) )  ? $_POST[ 'inputCel' ]  : '';
+    $idUser  = $_POST['idUser'];
+    $name1   = ( isset( $_POST[ 'inputName' ] ) ) ? $_POST[ 'inputName' ] : '';
+    $ap      = ( isset( $_POST[ 'inputAP' ] ) )   ? $_POST[ 'inputAP' ]   : '';
+    $am      = ( isset( $_POST[ 'inputAM' ] ) )   ? $_POST[ 'inputAM' ]   : '';
+    $curp    = ( isset( $_POST[ 'inputCurp' ] ) ) ? $_POST[ 'inputCurp' ] : '';
+    $esc     = ( isset( $_POST[ 'inputEsc' ] ) )  ? $_POST[ 'inputEsc' ]  : '';
+    $mail    = ( isset( $_POST[ 'inputMail' ] ) ) ? $_POST[ 'inputMail' ] : '';
+    $mailEnd = ( isset( $_POST[ 'inputMailEnd' ] ) ) ? $_POST[ 'inputMailEnd' ] : '';
+    $cel     = ( isset( $_POST[ 'inputCel' ] ) )  ? $_POST[ 'inputCel' ]  : '';
     
     $name = strtoupper( $name1 ).' '.strtoupper( $ap ).' '.strtoupper( $am ); // Nombre todo a mayúsculas
+    $arrMail = explode( "@", $mail );  
+    $endMail = ( $mailEnd == 1 ) ? "gmail.com" : ( $mailEnd == 2 ) ? "hotmail.com" : ( $mailEnd == 3 ) ? "outlook.com" : "icloud.com";
+    $letMail = $arrMail[0].'@'.$endMail;
     $msgErr = '';
     $ban = true;
     
@@ -32,9 +36,10 @@
         }
     }
     if( $esc != '' || $mail != '' && $cel != '' ){
+            
         $cadSqlUpd = "UPDATE $tInfo SET actualizado='$dateNow' ";
         if( $esc != '' ) $cadSqlUpd .= ", escuela_id='$esc'";
-        if( $mail != '' ) $cadSqlUpd .= ", correo='$mail'";
+        if( $mail != '' ) $cadSqlUpd .= ", correo='$letMail'";
         if( $cel != '' ) $cadSqlUpd .= ", celular='$cel'";
         $cadSqlUpd .= " WHERE id='$idInfo' ";
         if( $con->query( $cadSqlUpd ) === TRUE ){
@@ -42,7 +47,7 @@
             $msgErr .= 'Información actualizada con éxito.';
         }else{
             $ban = false;
-            $msgErr .= 'Error: Al actualizar información.';
+            $msgErr .= 'Error: Al actualizar información.'.$con->error;
         }
     }
 
