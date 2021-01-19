@@ -244,8 +244,7 @@ include('../config/conexion.php');
                         <input type="text" class="form-control form-white" placeholder="Nombre" id="inputName" name="inputName">
                         <input type="text" class="form-control form-white" placeholder="Apellido Paterno" id="inputAP" name="inputAP">
                         <input type="text" class="form-control form-white" placeholder="Apellido Materno" id="inputAM" name="inputAM">
-                        <input type="text" class="form-control form-white" placeholder="CURP" id="inputCurp" name="inputCurp">
-                        <span><a href="">Consulta tu CURP aquí</a></span>
+                        <input type="text" class="form-control form-white" placeholder="CURP" id="inputCurp" name="inputCurp" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                         <select class="form-control form-white" id="inputEsc" name="inputEsc">
                             <option style="background-color: #00a8ff">Escuela a ingresar</option>
                             <option style="background-color: #00a8ff" value="1">Técnica #1</option>
@@ -253,7 +252,7 @@ include('../config/conexion.php');
                         </select>
                         <div class="row">
                             <div class="col-sm-8">
-                                <input type="mail" class="form-control form-white" placeholder="Correo" id="inputMail" name="inputMail">
+                                <input type="text" class="form-control form-white" placeholder="Correo" id="inputMail" name="inputMail">
                             </div>
                             <div class="col-sm-4">
                                 <select class="form-control form-white" id="inputMailEnd" name="inputMailEnd">
