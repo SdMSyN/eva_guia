@@ -369,16 +369,16 @@ include('../config/conexion.php');
                             data: $('form#formData').serialize(),
                             success: function (msg) {
                                 console.log(msg);
-                                var msg = jQuery.parseJSON(msg);
-                                if (msg.error == 0) {
-                                    location.reload();
-                                } else {
-                                    $('#loading').empty();
-                                    $('#loading').append('<img src="../assets/obj/error.png" height="300" width="400" ><p><b>' + msg.msgErr + '</b></p>');
-                                    setTimeout(function () {
-                                        $('#loading').hide();
-                                    }, 1500);
-                                }
+                                // var msg = jQuery.parseJSON(msg);
+                                // if (msg.error == 0) {
+                                //     location.reload();
+                                // } else {
+                                //     $('#loading').empty();
+                                //     $('#loading').append('<img src="../assets/obj/error.png" height="300" width="400" ><p><b>' + msg.msgErr + '</b></p>');
+                                //     setTimeout(function () {
+                                //         $('#loading').hide();
+                                //     }, 1500);
+                                // }
                             },
                             error: function () {
                                 alert("Error al actualizar información de usuario");

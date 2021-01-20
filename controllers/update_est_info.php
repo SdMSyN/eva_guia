@@ -15,7 +15,17 @@
     
     $name = strtoupper( $name1 ).' '.strtoupper( $ap ).' '.strtoupper( $am ); // Nombre todo a mayúsculas
     $arrMail = explode( "@", $mail );  
-    $endMail = ( $mailEnd == 1 ) ? "gmail.com" : ( $mailEnd == 2 ) ? "hotmail.com" : ( $mailEnd == 3 ) ? "outlook.com" : "icloud.com";
+    // $endMail = ( $mailEnd == "1" ) ? "gmail.com" : ( $mailEnd == "2" ) ? "hotmail.com" : ( $mailEnd == "3" ) ? "outlook.com" : "icloud.com";
+    if( $mailEnd == "1" )
+        $endMail = "gmail.com";
+    else if( $mailEnd == "2" )
+        $endMail = "hotmail.com";
+    else if( $mailEnd == "3" )
+        $endMail = "outlook.com";
+    else if( $mailEnd == "4" )
+        $endMail = "icloud.com";
+    else 
+        $endMail = "otro";
     $letMail = $arrMail[0].'@'.$endMail;
     $msgErr = '';
     $ban = true;
@@ -52,7 +62,7 @@
     }
 
     if($ban){
-        echo json_encode(array("error"=>0, "msgErr"=>$msgErr));
+        echo json_encode(array("error"=>0, "msgErr"=>$msgErr, "mailend"=>$mailEnd, "sql"=>$letMail));
     }else{
         echo json_encode(array("error"=>1, "msgErr"=>$msgErr));
     }
