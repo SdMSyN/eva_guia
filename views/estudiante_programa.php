@@ -246,9 +246,10 @@ include('../config/conexion.php');
                         <input type="text" class="form-control form-white" placeholder="Apellido Materno" id="inputAM" name="inputAM">
                         <input type="text" class="form-control form-white" placeholder="CURP" id="inputCurp" name="inputCurp" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                         <select class="form-control form-white" id="inputEsc" name="inputEsc">
-                            <option style="background-color: #00a8ff">Escuela a ingresar</option>
+                            <option style="background-color: #00a8ff" value="">Escuela a ingresar</option>
                             <option style="background-color: #00a8ff" value="1">Técnica #1</option>
-                            <option style="background-color: #00a8ff" value="2">Otro</option>
+                            <option style="background-color: #00a8ff" value="2">Técnica #32</option>
+                            <option style="background-color: #00a8ff" value="0">Otro</option>
                         </select>
                         <div class="row">
                             <div class="col-sm-8">
@@ -369,16 +370,16 @@ include('../config/conexion.php');
                             data: $('form#formData').serialize(),
                             success: function (msg) {
                                 console.log(msg);
-                                // var msg = jQuery.parseJSON(msg);
-                                // if (msg.error == 0) {
-                                //     location.reload();
-                                // } else {
-                                //     $('#loading').empty();
-                                //     $('#loading').append('<img src="../assets/obj/error.png" height="300" width="400" ><p><b>' + msg.msgErr + '</b></p>');
-                                //     setTimeout(function () {
-                                //         $('#loading').hide();
-                                //     }, 1500);
-                                // }
+                                var msg = jQuery.parseJSON(msg);
+                                if (msg.error == 0) {
+                                    location.reload();
+                                } else {
+                                    $('#loading').empty();
+                                    $('#loading').append('<img src="../assets/obj/error.png" height="300" width="400" ><p><b>' + msg.msgErr + '</b></p>');
+                                    setTimeout(function () {
+                                        $('#loading').hide();
+                                    }, 1500);
+                                }
                             },
                             error: function () {
                                 alert("Error al actualizar información de usuario");

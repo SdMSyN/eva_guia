@@ -48,9 +48,12 @@
     if( $esc != '' || $mail != '' && $cel != '' ){
             
         $cadSqlUpd = "UPDATE $tInfo SET actualizado='$dateNow' ";
-        if( $esc != '' ) $cadSqlUpd .= ", escuela_id='$esc'";
-        if( $mail != '' ) $cadSqlUpd .= ", correo='$letMail'";
-        if( $cel != '' ) $cadSqlUpd .= ", celular='$cel'";
+        if( $esc != '' && $esc != 0 ) 
+            $cadSqlUpd .= ", escuela_id='$esc'";
+        if( $mail != '' ) 
+            $cadSqlUpd .= ", correo='$letMail'";
+        if( $cel != '' ) 
+            $cadSqlUpd .= ", celular='$cel'";
         $cadSqlUpd .= " WHERE id='$idInfo' ";
         if( $con->query( $cadSqlUpd ) === TRUE ){
             $ban = true;
