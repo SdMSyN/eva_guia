@@ -6,6 +6,7 @@
             $cadMenuNavbar .= '<li><a href="index_admin.php">Menú Administrador</a></li>';
             $cadMenuNavbar .= '<li><a href="admin_read_banco_niveles_escolares.php">Bancos</a></li>';
             $cadMenuNavbar .= '<li><a href="admin_read_estudiantes.php">Estudiantes</a></li>';
+            $cadMenuNavbar .= '<li><a href="admin_read_notificaciones.php">Notificaciones</a></li>';
         } else if($_SESSION['perfil'] == "3"){//Alumno
             $cadMenuNavbar .= '<li><a href="index_estudiante.php">Menú Alumno</a></li>';
             $cadMenuNavbar .= '<li><a href="est_programa.php">Programa</a></li>';
